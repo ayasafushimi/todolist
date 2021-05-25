@@ -29,7 +29,7 @@
 <ul>
   <% Article.all.each do |article| %>
     <li>
-      <%= article.text%><%= article.date%><%= article.time%>
+      <%= article.text%><%= article.date%><%= article.time%><%= link_to( "完了", complete_path(article), method: :delete)%>
     </li>
   <% end %>
 </ul>
