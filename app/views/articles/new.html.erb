@@ -1,0 +1,35 @@
+<h4>ToDo</h4>
+  <%= form_with model: @article, url:'/articles', method: :post do |f| %>
+    <div>
+      <%= f.label :text %><font color="red">*必須</font><br>
+      <%= f.text_field :text, placeholder: "やること" %><br>
+    </div>
+    <div>
+      <%= f.label :date %><font color="red">*必須</font><br>
+      <%= f.date_field :date %><br>
+    </div>
+    <div>
+      <%= f.label :time %><font color="red">*必須</font><br>
+      <%= f.time_field :time %><br>
+    </div>
+    <%= f.submit value: "登録" %><br>
+  <% end %>
+
+  <% if @article.errors.any? %>
+    <ul>
+      <% @article.errors.full_messages.each do |msg|%>
+        <li>
+          <font color="red"><%= msg %></font>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+<h4>やることリスト</h4>
+<ul>
+  <% Article.all.each do |article| %>
+    <li>
+      <%= article.text%><%= article.date%><%= article.time%>
+    </li>
+  <% end %>
+</ul>
