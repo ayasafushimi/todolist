@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    @articles = Article.datetime_between(params[:datetime_from], params[:datetime_to]).page(params[:page]).per(3)
+    @articles = Article.text_like(params[:text]).datetime_between(params[:datetime_from], params[:datetime_to]).page(params[:page]).per(3)
   end
 
   private

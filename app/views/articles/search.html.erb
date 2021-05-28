@@ -2,6 +2,11 @@
 
 <%= form_with url: search_path, method: :get do |f|%>
   <div>
+    title<br>
+    <%= f.text_field :text, placeholder: "やること"%>
+  </div>
+  <div>
+    duedate<br>
     <%= f.datetime_field :datetime_from %>
     〜
     <%= f.datetime_field :datetime_to %>
