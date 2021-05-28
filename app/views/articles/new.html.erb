@@ -6,11 +6,11 @@
     </div>
     <div>
       <%= f.label :date %><font color="red">*必須</font><br>
-      <%= f.date_field :date %><br>
+      <%= f.date_field :datetime, placeholder: "" %><br>
     </div>
     <div>
       <%= f.label :time %><font color="red">*必須</font><br>
-      <%= f.time_field :time %><br>
+      <%= f.time_field :datetime, placeholder: "" %><br>
     </div>
     <%= f.submit value: "登録" %><br>
   <% end %>
@@ -29,7 +29,7 @@
 <ul>
   <% Article.all.each do |article| %>
     <li>
-      <%= article.text%><%= article.date%><%= article.time%><%= link_to( "完了", complete_path(article), method: :delete)%>
+      <%= article.text%><%= article.datetime%><%= link_to( "完了", complete_path(article), method: :delete)%>
     </li>
   <% end %>
 </ul>

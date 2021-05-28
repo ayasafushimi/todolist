@@ -1,0 +1,18 @@
+<h4>検索</h4>
+
+<%= form_with url: search_path, method: :get do |f|%>
+  <div>
+    <%= f.datetime_field :datetime_from %>
+    〜
+    <%= f.datetime_field :datetime_to %>
+  </div>
+  <%= f.submit value: "検索" %><br>
+<% end %>
+
+<ul>
+  <% @articles.each do |article| %>
+  <li>
+    <%= article.text%><%= article.datetime%><%= link_to( "完了", complete_path(article), method: :delete)%>
+  </li>
+  <% end %>
+</ul>

@@ -21,9 +21,14 @@ class ArticlesController < ApplicationController
     redirect_to '/articles'
   end
 
+  def search
+    @articles = Article.datetime_between(params[:datetime_from], params[:datetime_to])
+  end
+
   private
     def article_params
-      params.require(:article).permit(:text, :date, :time)
+      params.require(:article).permit(:text, :datetime)
     end
+
 
 end
