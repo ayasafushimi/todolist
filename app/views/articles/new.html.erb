@@ -29,7 +29,10 @@
 <ul>
   <% Article.all.each do |article| %>
     <li>
-      <%= article.text%><%= article.datetime%><%= link_to( "完了", complete_path(article), method: :delete)%>
+      <div>
+        <%= article.datetime.strftime('%Y/%m/%d %H:%M') %>まで<br>
+        やること：<%= article.text%><%= button_to( "完了", complete_path(article), method: :delete)%>
+      </div>
     </li>
   <% end %>
 </ul>

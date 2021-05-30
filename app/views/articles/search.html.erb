@@ -1,23 +1,26 @@
 <h4>検索</h4>
 
-<%= form_with url: search_path, method: :get do |f|%>
-  <div>
-    title<br>
-    <%= f.text_field :text, placeholder: "やること"%>
-  </div>
-  <div>
-    duedate<br>
-    <%= f.datetime_field :datetime_from %>
-    〜
-    <%= f.datetime_field :datetime_to %>
-  </div>
-  <%= f.submit value: "検索" %><br>
+<%= search_form_for @q, url: search_path do |f|%>
+<div>
+  <%= f.label :text, 'title'%>
+  <%= f.text_field :text_cont, placeholder: "やること"%>
+</div>
+<div>
+  <%= f.label :datetime, 'duedate'%>
+  <%= f.datetime_field :datetime_gteq %>
+  〜
+  <%= f.datetime_field :datetime_lteq %>
+</div>
+<%= f.submit value: "検索" %><br>
 <% end %>
 
 <ul>
   <% @articles.each do |article| %>
   <li>
-    <%= article.text%><%= article.datetime%><%= link_to( "完了", complete_path(article), method: :delete)%>
+    <div>
+      <%= article.datetime.strftime('%Y/%m/%d %H:%M') %>まで<br>
+      やること：<%= article.text%><%= button_to( "完了", complete_path(article), method: :delete)%>
+    </div>
   </li>
   <% end %>
 </ul>
