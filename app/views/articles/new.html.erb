@@ -1,0 +1,52 @@
+<h4>ToDo</h4>
+  <%= form_with model: @article, url:'/articles', method: :post do |f| %>
+    <div>
+      <%= f.label :text %><font color="red">*必須</font><br>
+      <%= f.text_field :text, placeholder: "やること" %><br>
+    </div>
+    <div>
+      <%= f.label :date %><font color="red">*必須</font><br>
+      <%= f.date_field :datetime, placeholder: "" %><br>
+    </div>
+    <div>
+      <%= f.label :time %><font color="red">*必須</font><br>
+      <%= f.time_field :datetime, placeholder: "" %><br>
+    </div>
+    <%= f.submit value: "登録" %><br>
+  <% end %>
+
+  <% if @article.errors.any? %>
+    <ul>
+      <% @article.errors.full_messages.each do |msg|%>
+        <li>
+          <font color="red"><%= msg %></font>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+<h4>やることリスト</h4>
+<ul>
+  <% Article.where(done: false).each do |article| %>
+    <li>
+      <div>
+        <%= article.datetime.strftime('%Y/%m/%d %H:%M') %>まで<br>
+        やること：<%= article.text%><%= button_to( "完了", done_path(article), method: :get)%>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<h4>やったことリスト</h4>
+<ul>
+  <% Article.where(done: true).each do |article| %>
+  <li>
+    <div>
+      <font color="gray">
+      <%= article.datetime.strftime('%Y/%m/%d %H:%M') %>まで<br>
+      やったこと：<%= article.text%>
+      </font>
+    </div>
+  </li>
+  <% end %>
+</ul>
