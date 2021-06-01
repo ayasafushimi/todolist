@@ -14,15 +14,14 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def destroy
+  def done
     @article = Article.find(params[:id])
-    @article.destroy
+    @article.update(done: true)
 
     redirect_to '/articles'
   end
 
   def search
-    # @articles = Article.text_like(params[:text]).datetime_between(params[:datetime_from], params[:datetime_to]).page(params[:page]).per(3)
     @q = Article.ransack(params[:q])
     @articles = @q.result.page(params[:page]).per(3)
   end

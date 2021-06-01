@@ -27,12 +27,26 @@
 
 <h4>やることリスト</h4>
 <ul>
-  <% Article.all.each do |article| %>
+  <% Article.where(done: false).each do |article| %>
     <li>
       <div>
         <%= article.datetime.strftime('%Y/%m/%d %H:%M') %>まで<br>
-        やること：<%= article.text%><%= button_to( "完了", complete_path(article), method: :delete)%>
+        やること：<%= article.text%><%= button_to( "完了", done_path(article), method: :get)%>
       </div>
     </li>
+  <% end %>
+</ul>
+
+<h4>やったことリスト</h4>
+<ul>
+  <% Article.where(done: true).each do |article| %>
+  <li>
+    <div>
+      <font color="gray">
+      <%= article.datetime.strftime('%Y/%m/%d %H:%M') %>まで<br>
+      やったこと：<%= article.text%>
+      </font>
+    </div>
+  </li>
   <% end %>
 </ul>
