@@ -1,0 +1,15 @@
+h1 Todo
+
+div
+|todo
+br
+= @todo.task
+div
+|duedate
+br
+= @todo.duedate.strftime('%Y/%m/%d %H:%M')
+
+= button_to  "編集", edit_todo_path(@todo), method: :get
+
+div
+  = link_to  "Topに戻る", todos_path

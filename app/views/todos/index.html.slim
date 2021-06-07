@@ -1,0 +1,60 @@
+div
+  font[color="red"]
+    = flash[:notice]
+h1  Todolist
+= link_to  "NewTodo", new_todo_path
+
+h2 Search
+= search_form_for @q, url: todos_path do |f|
+  div
+    = f.label :task, 'todo'
+    br
+    = f.text_field :task_cont, placeholder: "やること"
+  div
+    = f.label :duedate, 'duedate'
+    br
+    = f.datetime_field :duedate_gteq
+    |  〜 
+    = f.datetime_field :duedate_lteq
+  = f.submit value: "検索"
+  br
+
+  table
+    thead
+      tr
+        th State
+        th Duedate
+        th Task
+        th
+        th
+        th
+    tbody
+      - @todos.each do |todo|
+        tr
+          td  = todo.state
+          td  = todo.duedate.strftime('%Y/%m/%d %H:%M')
+          td  = todo.task
+          td  = link_to  "編集", edit_todo_path(todo), method: :get
+          td
+            - if todo.state == "done"
+              |   
+            - else
+              = link_to  "完了", done_path(todo), method: :patch
+          td  = link_to  "削除", todo_path(todo), method: :delete, data: {confirm: "削除します。よろしいですか？"}
+/ ul
+/   - @todos.each do |todo|
+/     li
+/       div
+/         = todo.state
+/         = todo.duedate.strftime('%Y/%m/%d %H:%M')
+/         | まで
+/         br
+/         |  やること：
+/         = todo.task
+/         = link_to  "編集", edit_todo_path(todo), method: :get
+/         - if todo.state == "done"
+/           |   
+/         - else
+/           = link_to  "完了", done_path(todo), method: :patch
+/         = link_to  "削除", todo_path(todo), method: :delete, data: {confirm: "削除します。よろしいですか？"}
+= paginate @todos

@@ -61,3 +61,9 @@ gem 'rails-i18n'
 gem 'kaminari'
 
 gem 'ransack'
+
+gem 'rspec-rails', '~> 5.0.0'
+
+gem 'slim'
+
+gem 'html2slim'
