@@ -34,7 +34,7 @@ h2 Search
           td  = todo.state
           td  = todo.duedate.strftime('%Y/%m/%d %H:%M')
           td  = todo.task
-          td  = link_to  "編集", edit_todo_path(todo), method: :get
+          td  = link_to  "詳細", todo_path(todo), method: :get
           td
             - if todo.state == "done"
               |   
