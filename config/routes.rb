@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'todos#index'
   resources :todos
   # root "articles#new"
   patch '/todos/:id/done', to: 'todos#done', as: :done
