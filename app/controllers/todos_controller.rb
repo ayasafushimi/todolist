@@ -15,7 +15,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :redirect_to_todos
     @todo = Todo.new(todo_params)
 
     if @todo.save
-      redirect_to @todo
+      redirect_to @todo, notice: '新しいtodoが作成されました'
     else
       render :new
     end
@@ -32,7 +32,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :redirect_to_todos
   def update
     @todo = Todo.find(params[:id])
     if @todo.update(todo_params)
-      redirect_to @todo
+      redirect_to @todo, notice: 'todoが更新されました'
     else
       render :show
     end
@@ -42,7 +42,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :redirect_to_todos
     @todo = Todo.find(params[:id])
     @todo.destroy
 
-    redirect_to todos_path
+    redirect_to todos_path, notice: 'todoが削除されました'
   end
 
   def done

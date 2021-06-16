@@ -2,11 +2,11 @@ h1 Edit
 
 = form_with model: @todo do |f|
   div
-    = f.label :task, 'todo'
+    = f.label :task, 'Task'
     br
     = f.text_field :task
   div
-    = f.label :duedate, 'duedate'
+    = f.label :duedate, 'Duedate'
     br
     = f.datetime_field :duedate
   = f.submit value: "更新"

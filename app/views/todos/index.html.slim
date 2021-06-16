@@ -7,11 +7,11 @@ h1  Todolist
 h2 Search
 = search_form_for @q, url: todos_path do |f|
   div
-    = f.label :task, 'todo'
+    = f.label :task, 'Task'
     br
     = f.text_field :task_cont, placeholder: "やること"
   div
-    = f.label :duedate, 'duedate'
+    = f.label :duedate, 'Duedate'
     br
     = f.datetime_field :duedate_gteq
     |  〜 
@@ -34,27 +34,16 @@ h2 Search
           td  = todo.state
           td  = todo.duedate.strftime('%Y/%m/%d %H:%M')
           td  = todo.task
-          td  = link_to  "詳細", todo_path(todo), method: :get
+          td
+            - if todo.state == "done"
+              |   
+            - else
+              = link_to  "詳細", todo_path(todo), method: :get
           td
             - if todo.state == "done"
               |   
             - else
               = link_to  "完了", done_path(todo), method: :patch
           td  = link_to  "削除", todo_path(todo), method: :delete, data: {confirm: "削除します。よろしいですか？"}
-/ ul
-/   - @todos.each do |todo|
-/     li
-/       div
-/         = todo.state
-/         = todo.duedate.strftime('%Y/%m/%d %H:%M')
-/         | まで
-/         br
-/         |  やること：
-/         = todo.task
-/         = link_to  "編集", edit_todo_path(todo), method: :get
-/         - if todo.state == "done"
-/           |   
-/         - else
-/           = link_to  "完了", done_path(todo), method: :patch
-/         = link_to  "削除", todo_path(todo), method: :delete, data: {confirm: "削除します。よろしいですか？"}
+
 = paginate @todos

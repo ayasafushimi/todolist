@@ -1,15 +1,20 @@
+div
+  font[color="green"]
+    = flash[:notice]
 h1 Todo
 
 div
-|todo
+|Task
 br
 = @todo.task
 div
-|duedate
+|Duedate
 br
 = @todo.duedate.strftime('%Y/%m/%d %H:%M')
 
 = button_to  "編集", edit_todo_path(@todo), method: :get
+= button_to  "削除", todo_path(@todo), method: :delete, data: {confirm: "削除します。よろしいですか？"}
+
 
 div
   = link_to  "Topに戻る", todos_path
