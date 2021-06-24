@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_06_120737) do
+ActiveRecord::Schema.define(version: 2021_06_03_031510) do
 
-  create_table "todos", force: :cascade do |t|
+  create_table "todos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "task", null: false
     t.datetime "duedate", null: false
-    t.text "state", default: "todo", null: false
+    t.string "state", default: "todo", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
