@@ -1,0 +1,17 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: "e5c7d1f3-f93a-4eda-8e27-5268a39e3c62"
+          heroku_app_name: "sandbox-ruby" #Must be unique in Heroku
+          heroku_email: "bolbus0617@gmail.com"
