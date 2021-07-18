@@ -9,4 +9,19 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
+    ul
+      - if current_user
+        li  = link_to  "タスク一覧", todos_path
+        - if current_user.admin?
+          li  = link_to  "ユーザー一覧", admin_users_path
+        li  = link_to  "ログアウト", logout_path, method: :delete
+      - else
+        li  = link_to  "ログイン", login_path
+
+    div
+      font[color="red"]
+        = flash[:error]
+    div
+      font[color="green"]
+        = flash[:notice]
     = yield

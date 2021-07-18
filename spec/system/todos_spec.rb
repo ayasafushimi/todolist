@@ -1,28 +1,57 @@
 require 'rails_helper'
 
-describe 'Todolist', type: :system do
+describe Todo, type: :system do
 
   describe '一覧表示機能' do
 
-    let!(:todo_a) { FactoryBot.create(:todo, task: '最初のtodo', duedate: '202106171700') }
+    let!(:logged_in_user) {FactoryBot.create(:user, name: '太郎', email: 'test@example.com', password: 'password', password_confirmation: 'password')}
+    let!(:not_logged_in_user) {FactoryBot.create(:user, name: '花子', email: 'test2@example.com', password: 'password', password_confirmation: 'password')}
 
-    it '一覧表示画面にtodoが表示されること' do
-      visit '/'
-      expect(page).to  have_content '最初のtodo'
+    before do
+      logged_in_user.todos.create(task: 'このtodoはみられるよ', duedate: '202106171700')
+      not_logged_in_user.todos.create(task: 'このtodoはみられないよ', duedate: '202106171700')
+    end
+
+    it "ログインしているユーザーのtodoのみが表示されること" do
+      visit '/login'
+      fill_in 'メールアドレス', with: 'test@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログインする'
+      visit "/todos"
+      expect(page).to  have_content 'このtodoはみられるよ'
+      expect(page).not_to  have_content 'このtodoはみられないよ'
     end
   end
 
   describe '詳細表示機能' do
 
-    let!(:todo_a) { FactoryBot.create(:todo, task: '最初のtodo', duedate: '202106171700') }
+    let!(:logged_in_user) {FactoryBot.create(:user, name: '太郎', email: 'test@example.com', password: 'password', password_confirmation: 'password')}
+    let!(:not_logged_in_user) {FactoryBot.create(:user, name: '花子', email: 'test2@example.com', password: 'password', password_confirmation: 'password')}
 
-    it '詳細表示画面に詳細が表示されること' do
-      visit todo_path(todo_a)
-      expect(page).to  have_content '最初のtodo'
+    before do
+      @logged_in_user_todo = logged_in_user.todos.create(task: 'このtodoはみられるよ', duedate: '202106171700')
+      @not_logged_in_user_todo = not_logged_in_user.todos.create(task: 'このtodoはみられないよ', duedate: '202106171700')
+
+      visit '/login'
+      fill_in 'メールアドレス', with: 'test@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログインする'
+    end
+
+    it 'ログインしているユーザーのtodo詳細が表示されること' do
+      visit todo_path(@logged_in_user_todo)
+      expect(page).to  have_content 'このtodoはみられるよ'
+    end
+
+    it "他ユーザーのtodo詳細が表示されないこと" do
+      visit todo_path(@not_logged_in_user_todo)
+      expect(page).to  have_content '404 Not Found'
     end
   end
 
   describe '新規作成機能' do
+
+    let!(:user) {FactoryBot.create(:user, name: '太郎', email: 'test@example.com', password: 'password', password_confirmation: 'password')}
 
     let(:valid_task) { '新規作成のテストを書く' }
     let(:empty_task) { '' }
@@ -30,6 +59,10 @@ describe 'Todolist', type: :system do
     let(:empty_duedate) { '' }
 
     before do
+      visit '/login'
+      fill_in 'メールアドレス', with: 'test@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログインする'
       visit new_todo_path
     end
 
@@ -61,11 +94,19 @@ describe 'Todolist', type: :system do
 
   describe '編集機能' do
 
-    let!(:todo_a) { FactoryBot.create(:todo, task: '最初のtodo', duedate: '202106171700') }
+    let!(:user) {FactoryBot.create(:user, name: '太郎', email: 'test@example.com', password: 'password', password_confirmation: 'password')}
     let(:valid_task) { '編集機能のテストを書く' }
 
+    before do
+      @todo = user.todos.create(task: '編集されちゃうよ', duedate: '202106171700')
+      visit '/login'
+      fill_in 'メールアドレス', with: 'test@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログインする'
+    end
+
     it 'todoを編集して更新できること' do
-      visit todo_path(todo_a)
+      visit todo_path(@todo)
       click_button '編集'
       fill_in 'Task', with: valid_task
       click_button '更新'
@@ -77,10 +118,18 @@ describe 'Todolist', type: :system do
 
   describe '削除機能' do
 
-    let!(:todo_a) { FactoryBot.create(:todo, task: '最初のtodo', duedate: '202106171700') }
+    let!(:user) {FactoryBot.create(:user, name: '太郎', email: 'test@example.com', password: 'password', password_confirmation: 'password')}
+    let!(:todo) {user.todos.create(task: '削除されちゃうよ', duedate: '202106171700')}
 
-    it '削除ボタンを押すとtodoが削除されること' do
-      visit todo_path(todo_a)
+    before do
+      visit '/login'
+      fill_in 'メールアドレス', with: 'test@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログインする'
+    end
+
+    it '削除ボタンを押すとtodoが削除できること' do
+      visit todo_path(todo)
       accept_alert do
         click_button '削除'
       end
@@ -90,27 +139,31 @@ describe 'Todolist', type: :system do
 
   describe '検索機能' do
 
-    let!(:todo_a) { FactoryBot.create(:todo, task: '最初のtodo', duedate: '202106171700') }
-
-    let(:task) { 'todo' }
+    let!(:user) {FactoryBot.create(:user, name: '太郎', email: 'test@example.com', password: 'password', password_confirmation: 'password')}
+    let!(:todo) {user.todos.create(task: '検索されちゃうよ', duedate: '202106171700')}
+    let(:task) { '検索' }
     let(:duedate_from) { '00202106010000' }
     let(:duedate_to) { '00202107010000' }
 
     before do
+      visit '/login'
+      fill_in 'メールアドレス', with: 'test@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログインする'
       visit '/'
     end
 
     it 'タスクを入力して検索ができること' do
       fill_in 'やること', with: task
       click_button '検索'
-      expect(page).to  have_content '最初のtodo'
+      expect(page).to  have_content '検索されちゃうよ'
     end
 
     it '期限を指定して検索ができること' do
       fill_in 'q[duedate_gteq]', with: duedate_from
       fill_in 'q[duedate_lteq]', with: duedate_to
       click_button '検索'
-      expect(page).to  have_content '最初のtodo'
+      expect(page).to  have_content '検索されちゃうよ'
     end
   end
 

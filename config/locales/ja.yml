@@ -7,11 +7,14 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
     attributes:
-      article:
-        text: やること
-        date: 日付
-        time: 時間
-        datetime: 日時
+      user:
+        name: 名前
+        email: メールアドレス
+        admin: 管理者権限
+        password: パスワード
+        password_confirmation: パスワード(確認)
+        created_at: 登録日時
+        updated_at: 更新日時
   date:
     abbr_day_names:
     - 日
@@ -22,7 +25,6 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
     - 1月
     - 2月
     - 3月
