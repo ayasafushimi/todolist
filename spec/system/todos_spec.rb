@@ -31,6 +31,7 @@ describe Todo, type: :system do
     before do
       @logged_in_user_todo = logged_in_user.todos.create(task: 'このtodoはみられるよ', duedate: '202106171700')
       @not_logged_in_user_todo = not_logged_in_user.todos.create(task: 'このtodoはみられないよ', duedate: '202106171700')
+      @linked_todo = logged_in_user.todos.create(task: 'https://www.yahoo.co.jp/', duedate: '202106171700')
 
       visit '/login'
       fill_in 'メールアドレス', with: 'test@example.com'
@@ -46,6 +47,12 @@ describe Todo, type: :system do
     it "他ユーザーのtodo詳細が表示されないこと" do
       visit todo_path(@not_logged_in_user_todo)
       expect(page).to  have_content '404 Not Found'
+    end
+
+    it "テキストに貼ったリンク先をクリックすると、リンク先へ遷移できること" do
+      visit todo_path(@linked_todo)
+      click_link "https://www.yahoo.co.jp/"
+      expect(page).to  have_content "Yahoo! JAPAN"
     end
   end
 

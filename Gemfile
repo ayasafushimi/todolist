@@ -70,3 +70,5 @@ gem 'ransack'
 gem 'slim'
 
 gem 'html2slim'
+
+gem 'rinku'
