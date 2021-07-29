@@ -31,7 +31,7 @@ h2 Search
         tr
           td  = todo.state
           td  = todo.duedate.strftime('%Y/%m/%d %H:%M')
-          td  = todo.task
+          td  = raw Rinku.auto_link(todo.task)
           td
             - if todo.state == "done"
               |
