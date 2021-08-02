@@ -42,7 +42,17 @@ describe User, type: :system do
       fill_in "メールアドレス",	with: "test2@example.com"
       fill_in "パスワード",	with: "password"
       fill_in "パスワード(確認)",	with: "password"
-      click_button "登録する"
+      click_button "確認"
+      # 確認ボタンを押すと、確認画面が表示されることを確認する
+      expect(page).to  have_content '登録内容の確認'
+      click_button "戻る"
+      # 戻るボタンを押すと、登録画面へ戻ることを確認する
+      expect(page).to  have_content 'ユーザー登録'
+      fill_in "パスワード",	with: "password"
+      fill_in "パスワード(確認)",	with: "password"
+      click_button "確認"
+      click_button "登録"
+      # 登録完了のメッセージが表示されることを確認する
       expect(page).to  have_content 'ユーザー「花子」を登録しました。'
     end
 
@@ -53,7 +63,8 @@ describe User, type: :system do
       fill_in "メールアドレス",	with: "test2@example.com"
       fill_in "パスワード",	with: "password"
       fill_in "パスワード(確認)",	with: "password_detarame"
-      click_button "登録する"
+      click_button "確認"
+      # エラー文が表示されることを確認する
       expect(page).to  have_content '入力が一致しません'
     end
   end
@@ -75,7 +86,18 @@ describe User, type: :system do
       click_link '花子'
       click_link '編集'
       fill_in "名前",	with: "愛子"
-      click_button "登録する"
+      click_button "確認"
+      # 確認ボタンを押すと、確認画面が表示されることを確認する
+      expect(page).to  have_content '登録内容の確認'
+      click_button "戻る"
+      # 戻るボタンを押すと、編集画面へ戻ることを確認する
+      expect(page).to  have_content 'ユーザーの編集'
+      fill_in "名前",	with: "愛子"
+      fill_in "パスワード",	with: "password"
+      fill_in "パスワード(確認)",	with: "password"
+      click_button "確認"
+      click_button "登録"
+      # 登録完了のメッセージが表示されることを確認する
       expect(page).to  have_content 'ユーザー「愛子」が更新しました。'
     end
   end

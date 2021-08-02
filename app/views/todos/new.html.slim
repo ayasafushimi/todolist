@@ -1,6 +1,6 @@
-h1 NewTodo
+h1 todoの新規登録
 
-= form_with model: @todo do |f|
+= form_with model: @todo, local: true, url: { action: 'confirm'} do |f|
   div
     = f.label :task, 'Task'
     br
@@ -9,7 +9,7 @@ h1 NewTodo
     = f.label :duedate, 'Duedate'
     br
     = f.datetime_field :duedate
-  = f.submit value: "登録"
+  = f.submit '確認'
 
   div
   - if @todo.errors.any?

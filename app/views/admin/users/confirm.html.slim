@@ -1,0 +1,34 @@
+h1 登録内容の確認
+
+= form_with model: [:admin, @user], local: true do |f|
+  table
+    tbody
+      tr
+        th  = User.human_attribute_name(:name)
+        td  = @user.name
+        = f.hidden_field :name
+      tr
+        th  = User.human_attribute_name(:email)
+        td  = @user.email
+        = f.hidden_field :email
+      tr
+        th  = User.human_attribute_name(:admin)
+        td  = @user.admin
+        = f.hidden_field :admin
+      tr
+        th  = User.human_attribute_name(:password)
+        td  = @user.password
+        = f.hidden_field :password
+  = f.submit '戻る', name: 'back'
+  = f.submit '登録'
+
+  div
+  - if @user.errors.any?
+  ul
+    - @user.errors.full_messages.each do |msg|
+      li
+        font[color="red"]
+          = msg
+
+  div
+  = link_to  "Topに戻る", todos_path

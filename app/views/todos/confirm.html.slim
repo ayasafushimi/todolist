@@ -1,0 +1,26 @@
+h1 登録内容の確認
+
+= form_with model: @todo, local: true do |f|
+  table
+    tbody
+      tr
+        th  = Todo.human_attribute_name(:task)
+        td  = @todo.task
+        = f.hidden_field :task
+      tr
+        th  = Todo.human_attribute_name(:duedate)
+        td  = @todo.duedate.strftime('%Y/%m/%d %H:%M')
+        = f.hidden_field :duedate
+  = f.submit '戻る', name: 'back'
+  = f.submit '登録'
+
+  div
+  - if @todo.errors.any?
+  ul
+    - @todo.errors.full_messages.each do |msg|
+      li
+        font[color="red"]
+          = msg
+
+  div
+  = link_to  "Topに戻る", todos_path

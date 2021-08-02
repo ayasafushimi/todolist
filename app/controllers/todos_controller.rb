@@ -2,7 +2,7 @@ class TodosController < ApplicationController
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-before_action :set_todo, only: [:show, :edit, :update, :destroy, :done]
+before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm_edit]
 
   def index
     @q = current_user.todos.ransack(params[:q])
@@ -13,11 +13,31 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done]
     @todo = Todo.new
   end
 
+  def confirm
+    if request.post?
+      @todo = current_user.todos.new(todo_params)
+    else
+      set_todo
+      @todo.attributes = todo_params
+    end
+
+    if @todo.valid?
+      render action: "confirm"
+    else
+      render action: request.post? ? "new" : "edit"
+    end
+  end
+
   def create
     @todo = current_user.todos.new(todo_params)
 
+    if params[:back].present?
+      render :new
+      return
+    end
+
     if @todo.save
-      redirect_to @todo, notice: '新しいtodoが作成されました'
+      redirect_to @todo, notice: "新しいtodoが作成されました"
     else
       render :new
     end
@@ -32,6 +52,11 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done]
   end
 
   def update
+    if params[:back].present?
+      render :edit
+      return
+    end
+
     if @todo.update(todo_params)
       redirect_to @todo, notice: 'todoが更新されました'
     else

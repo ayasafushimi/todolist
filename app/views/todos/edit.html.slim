@@ -1,6 +1,6 @@
 h1 Edit
 
-= form_with model: @todo do |f|
+= form_with model: @todo, url: { action: 'confirm'}, lacal: true do |f|
   div
     = f.label :task, 'Task'
     br
@@ -9,7 +9,7 @@ h1 Edit
     = f.label :duedate, 'Duedate'
     br
     = f.datetime_field :duedate
-  = f.submit value: "更新"
+  = f.submit value: "確認"
 
 div
   = link_to  "Topに戻る", todos_path

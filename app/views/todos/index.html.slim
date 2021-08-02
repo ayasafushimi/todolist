@@ -20,9 +20,9 @@ h2 Search
   table
     thead
       tr
-        th State
-        th Duedate
-        th Task
+        th  = Todo.human_attribute_name(:state)
+        th  = Todo.human_attribute_name(:duedate)
+        th  = Todo.human_attribute_name(:task)
         th
         th
         th

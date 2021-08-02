@@ -1,5 +1,5 @@
 
-= form_with model: [:admin, user], local: true do |f|
+= form_with model: [:admin, user], local: true, url: { action: 'confirm'} do |f|
   div
     = f.label :name, '名前'
     br
@@ -20,7 +20,7 @@
     = f.label :password_confirmation, 'パスワード(確認)'
     br
     = f.password_field :password_confirmation
-  = f.submit value: "登録する"
+  = f.submit value: "確認"
 
   div
   - if user.errors.any?
