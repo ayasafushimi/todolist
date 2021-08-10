@@ -1,0 +1,8 @@
+| 以下のTodoを作成しました
+= "\n"
+| Todo：
+= raw Rinku.auto_link(@todo.task)
+= "\n"
+| 締め切り日：
+= "\n"
+= @todo.duedate.strftime('%Y/%m/%d %H:%M')

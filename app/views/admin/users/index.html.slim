@@ -5,14 +5,46 @@ h1 ユーザー一覧
 
 = link_to '新規登録', new_admin_user_path
 
+h2 Search
+= search_form_for @q, url: admin_users_path do |f|
+  div
+    = f.label :name, User.human_attribute_name(:name)
+    br
+    = f.text_field :name_cont, placeholder: "（例）花子"
+  div
+    = f.label :email, User.human_attribute_name(:email)
+    br
+    = f.text_field :email_cont, placeholder: "（例）test@exampl.com"
+  div
+    = f.label :admin, User.human_attribute_name(:admin)
+    br
+    |あり
+    = f.radio_button :admin_eq, true
+    |なし
+    = f.radio_button :admin_eq, false
+  div
+    = f.label :created_at, User.human_attribute_name(:created_at)
+    br
+    = f.datetime_field :created_at_gteq
+    |  〜
+    = f.datetime_field :created_at_lteq
+  div
+    = f.label :created_at, User.human_attribute_name(:updated_at)
+    br
+    = f.datetime_field :updated_at_gteq
+    |  〜
+    = f.datetime_field :updated_at_lteq
+  = f.submit value: "検索"
+  br
+
 table
   thead
     tr
-      th  = User.human_attribute_name(:name)
-      th  = User.human_attribute_name(:email)
-      th  = User.human_attribute_name(:admin)
-      th  = User.human_attribute_name(:created_at)
-      th  = User.human_attribute_name(:updated_at)
+      th  = sort_link( @q, :name, User.human_attribute_name(:name))
+      th  = sort_link( @q, :email, User.human_attribute_name(:email))
+      th  = sort_link( @q, :admin, User.human_attribute_name(:admin))
+      th  = sort_link( @q, :created_at, User.human_attribute_name(:created_at))
+      th  = sort_link( @q, :updated_at, User.human_attribute_name(:updated_at))
       th
   tbody
     - @users.each do |user|

@@ -1,13 +1,18 @@
 h1 Todo
 
 div
-|Task
+= Todo.human_attribute_name(:task)
 br
 = raw Rinku.auto_link(@todo.task)
 div
-|Duedate
+= Todo.human_attribute_name(:duedate)
 br
 = @todo.duedate.strftime('%Y/%m/%d %H:%M')
+div
+= Todo.human_attribute_name(:image)
+br
+= image_tag @todo.image if @todo.image.attached?
+
 
 = button_to  "編集", edit_todo_path(@todo), method: :get
 = button_to  "削除", todo_path(@todo), method: :delete, data: {confirm: "削除します。よろしいですか？"}

@@ -13,11 +13,16 @@ h1 登録内容の確認
         = f.hidden_field :email
       tr
         th  = User.human_attribute_name(:admin)
-        td  = @user.admin
+        td  = @user.admin? ? 'あり' : 'なし'
         = f.hidden_field :admin
       tr
         th  = User.human_attribute_name(:password)
-        td  = @user.password
+        td
+          - if @user.password.present?
+            - @user.password.length.times do
+              = "*"
+          - else
+            |
         = f.hidden_field :password
   = f.submit '戻る', name: 'back'
   = f.submit '登録'

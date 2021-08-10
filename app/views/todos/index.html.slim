@@ -20,9 +20,9 @@ h2 Search
   table
     thead
       tr
-        th  = Todo.human_attribute_name(:state)
-        th  = Todo.human_attribute_name(:duedate)
-        th  = Todo.human_attribute_name(:task)
+        th  = sort_link( @q, :state, Todo.human_attribute_name(:state))
+        th  = sort_link( @q, :duedate, Todo.human_attribute_name(:duedate))
+        th  = sort_link( @q, :task, Todo.human_attribute_name(:task))
         th
         th
         th

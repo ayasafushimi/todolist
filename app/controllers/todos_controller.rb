@@ -37,6 +37,7 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm
     end
 
     if @todo.save
+      TodoMailer.creation_email(@todo).deliver_now
       redirect_to @todo, notice: "新しいtodoが作成されました"
     else
       render :new
@@ -80,7 +81,7 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm
 
   private
     def todo_params
-      params.require(:todo).permit(:task, :duedate)
+      params.require(:todo).permit(:task, :duedate,:image)
     end
 
     def set_todo

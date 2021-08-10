@@ -2,11 +2,11 @@ h1 Edit
 
 = form_with model: @todo, url: { action: 'confirm'}, lacal: true do |f|
   div
-    = f.label :task, 'Task'
+    = f.label :task, Todo.human_attribute_name(:task)
     br
     = f.text_field :task
   div
-    = f.label :duedate, 'Duedate'
+    = f.label :duedate, Todo.human_attribute_name(:duedate)
     br
     = f.datetime_field :duedate
   = f.submit value: "確認"
