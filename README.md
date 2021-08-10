@@ -6,6 +6,6 @@
 
 testアカウント
 【管理者権限あり】
-・ name: '太郎', email: 'test@example.com', password: 'password'
+name: '太郎', email: 'test@example.com', password: 'password'
 【管理者権限なし】
-・ name: '花子', email: 'test2@example.com', password: 'password'
+name: '花子', email: 'test2@example.com', password: 'password'
