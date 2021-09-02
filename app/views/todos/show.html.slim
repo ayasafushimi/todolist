@@ -10,9 +10,6 @@ div.bg-white.shadow.overflow-hidden.rounded-md.w-3/5
       div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
         dt.uppercase.font-medium.text-gray-400 = Todo.human_attribute_name(:duedate)
         dd.mt-1.sm:mt-0.sm:col-span-2 = @todo.duedate.strftime('%Y/%m/%d %H:%M')
-      div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
-        dt.uppercase.font-medium.text-gray-400 = Todo.human_attribute_name(:image)
-        dd.mt-1.sm:mt-0.sm:col-span-2 = image_tag @todo.image if @todo.image.attached?
 div.my-8.w-3/5.h-5.relative
   div.absolute.right-0.bottom-0.mx-2
     span.px-3
