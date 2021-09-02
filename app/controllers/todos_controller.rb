@@ -37,7 +37,6 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm
     end
 
     if @todo.save
-      TodoMailer.creation_email(@todo).deliver_now
       redirect_to @todo, notice: "新しいTodoが作成されました"
     else
       render :new
