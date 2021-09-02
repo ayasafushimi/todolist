@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new
   end
 
-    def confirm
+  def confirm
     if request.post?
       @user = User.new(user_params)
     else

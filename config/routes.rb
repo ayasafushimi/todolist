@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
+  post '/guest_login', to: 'sessions#guest_login'
   delete '/logout', to: 'sessions#destroy'
   root 'todos#index'
   resources :todos do

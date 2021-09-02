@@ -20,8 +20,19 @@ class SessionsController < ApplicationController
     redirect_to login_path, notice: 'ログアウトしました'
   end
 
+  def guest_login
+    # ゲストアカウントが削除されていた場合には、アカウントを作成し直す。
+    user = User.find_or_create_by!(email: 'guest@example.com') do |user|
+      # 前回のログイン中にパスワード変更された場合に備え、ゲストログインをする度にランダムな英数字パスワードを設定する。
+      user.password = SecureRandom.alphanumeric
+    end
+    session[:user_id] = user.id
+    redirect_to root_path, notice: 'ログインしました'
+  end
+
   private
   def session_params
     params.require(:session).permit(:email, :password)
   end
+
 end

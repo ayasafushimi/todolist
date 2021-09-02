@@ -3,12 +3,19 @@ require 'rails_helper'
 describe "ログイン機能", type: :system do
 
   let!(:user) {FactoryBot.create(:user, name: '太郎', email: 'test@example.com', password: 'password', password_confirmation: 'password')}
+  let!(:guest_user) {FactoryBot.create(:user, name: '太郎', email: 'guest@example.com', password: 'password', password_confirmation: 'password')}
 
   it '登録したメールアドレスでログインができること' do
     visit '/login'
     fill_in 'メールアドレス', with: 'test@example.com'
     fill_in 'パスワード', with: 'password'
     click_button 'ログインする'
+    expect(page).to  have_content 'ログインしました'
+  end
+
+  it 'メールアドレス・パスワードの入力なしで、ログインができること' do
+    visit '/login'
+    click_link_or_button 'かんたんログイン'
     expect(page).to  have_content 'ログインしました'
   end
 
