@@ -2,8 +2,8 @@ div.flex.justify-center.items-center
     = form_with scope: :session, local: true, class: 'flex justify-center items-center flex-col p-10 bg-white rounded shadow-md' do |f|
       = icon 'fas','user-circle', class: 'fa-5x mb-2' 
       p.mb-5.text-3xl ログイン
-      = f.text_field :email, id: 'session_email', placeholder: "#{User.human_attribute_name(:email)}", class: 'mb-5 p3 w-80 focus:border-purple-600 rounded border-2 border-gray-200'
-      = f.password_field :password, id: 'session_password', placeholder: "#{User.human_attribute_name(:password)}", class: 'mb-5 p3 w-80 focus:border-purple-600 rounded border-2 border-gray-200'
+      = f.text_field :email, id: 'session_email', placeholder: "#{User.human_attribute_name(:email)}", class: 'mb-5 p-3 w-80 focus:border-purple-600 rounded border-2 border-gray-200'
+      = f.password_field :password, id: 'session_password', placeholder: "#{User.human_attribute_name(:password)}", class: 'mb-5 p-3 w-80 focus:border-purple-600 rounded border-2 border-gray-200'
       = f.submit 'ログインする', class:'bg-purple-600 hover:bg-purple-900 text-white font-bold p-2 rounded w-80'
 
 

@@ -11,21 +11,21 @@ div.flex.flex-col.my-10.text-gray-500
         span.font-bold.my-3
           = f.label :name, User.human_attribute_name(:name)
         span
-          = f.text_field :name_cont, placeholder: "（例）花子", class: 'rounded-md border-none'
+          = f.text_field :name_cont, placeholder: "（例）花子", class: 'rounded-md border-none p-3'
       div.flex.flex-col.mx-5
         span.font-bold.my-3
           = f.label :email, User.human_attribute_name(:email)
         span
-          = f.text_field :email_cont, size: 40, placeholder: "（例）test@exampl.com", class: 'rounded-md border-none'
+          = f.text_field :email_cont, size: 40, placeholder: "（例）test@exampl.com", class: 'rounded-md border-none p-3'
       div.flex.flex-col.mx-5
         span.font-bold.my-3
           = f.label :admin, User.human_attribute_name(:admin)
-        div
+        div.py-3
           span
             = f.label "あり"
           span.ml-1
             = f.radio_button :admin_eq, true
-          span.ml-2
+          span.ml-3
             = f.label "なし"
           span.ml-1
             = f.radio_button :admin_eq, false, checked: true

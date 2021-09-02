@@ -11,12 +11,12 @@ div.container.flex.flex-col.my-6.text-gray-500
       span.font-bold.my-2
         = f.label :task, Todo.human_attribute_name(:task)
       span
-        = f.text_field :task, class: 'rounded-md border-none'
+        = f.text_field :task, class: 'rounded-md border-none p-3'
     div.flex.flex-col.my-2
       span.font-bold.my-2
         = f.label :duedate, Todo.human_attribute_name(:duedate)
       span
-        = f.datetime_field :duedate, class: 'rounded-md border-none'
+        = f.datetime_field :duedate, class: 'rounded-md border-none p-3'
     div.flex.flex-col.my-2
       span.font-bold.my-2
         = f.label :image
