@@ -1,26 +1,32 @@
-h1 登録内容の確認
+div.w-3/5
+  h1.text-2xl.leading-6.font-bold.tracking-wide.py-5 登録内容の確認
+  = form_with model: @todo, local: true do |f|
+    div.bg-white.shadow.overflow-hidden.rounded-md.my-4.text-sm
+      div.sm:px-6.px-4.py-5
+        h1.text-lg.leading-6.font-medium Todo詳細
+      div.border-t.border-gray-200
+        dl 
+          div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+            dt.uppercase.font-medium.text-gray-400 = Todo.human_attribute_name(:task)
+            dd.mt-1.sm:mt-0.sm:col-span-2 = @todo.task
+            = f.hidden_field :task
+          div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+            dt.uppercase.font-medium.text-gray-400 = Todo.human_attribute_name(:duedate)
+            dd.mt-1.sm:mt-0.sm:col-span-2 = @todo.duedate.strftime('%Y/%m/%d %H:%M')
+            = f.hidden_field :duedate
+          div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+            dt.uppercase.font-medium.text-gray-400 = Todo.human_attribute_name(:image)
+            dd.mt-1.sm:mt-0.sm:col-span-2 = image_tag @todo.image if @todo.image.attached?
+    div.flex.justify-center.items-center
+      span.px-2.my-2
+        = f.submit '戻る', name: 'back', class: 'border bg-gray-600 text-white w-20 p-2 rounded-md font-bold'
+      span.px-2.my-2
+        = f.submit '登録', class: 'border bg-red-600 text-white w-20 p-2 rounded-md font-bold'
 
-= form_with model: @todo, local: true do |f|
-  table
-    tbody
-      tr
-        th  = Todo.human_attribute_name(:task)
-        td  = @todo.task
-        = f.hidden_field :task
-      tr
-        th  = Todo.human_attribute_name(:duedate)
-        td  = @todo.duedate.strftime('%Y/%m/%d %H:%M')
-        = f.hidden_field :duedate
-  = f.submit '戻る', name: 'back'
-  = f.submit '登録'
-
-  div
-  - if @todo.errors.any?
-  ul
-    - @todo.errors.full_messages.each do |msg|
-      li
-        font[color="red"]
-          = msg
-
-  div
-  = link_to  "Topに戻る", todos_path
+    div
+    - if @todo.errors.any?
+    ul
+      - @todo.errors.full_messages.each do |msg|
+        li
+          font[color="red"]
+            = msg

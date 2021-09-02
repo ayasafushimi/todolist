@@ -19,8 +19,8 @@ describe User, type: :system do
         expect(page).to  have_current_path(root_path)
       end
 
-      it "ユーザー一覧リンクが表示されていないこと" do
-        expect(page).not_to  have_content "ユーザー一覧"
+      it "Usersリンクが表示されていないこと" do
+        expect(page).not_to  have_content "Users"
       end
     end
   end
@@ -36,8 +36,8 @@ describe User, type: :system do
     end
 
     it 'ユーザーが登録できること' do
-      click_link_or_button "ユーザー一覧"
-      click_link '新規登録'
+      click_link_or_button "Users"
+      click_link '新しいユーザーを作成'
       fill_in "名前",	with: "花子"
       fill_in "メールアドレス",	with: "test2@example.com"
       fill_in "パスワード",	with: "password"
@@ -57,8 +57,8 @@ describe User, type: :system do
     end
 
     it 'パスワードが一致していない場合はエラーがでること' do
-      click_link_or_button "ユーザー一覧"
-      click_link '新規登録'
+      click_link_or_button "Users"
+      click_link '新しいユーザーを作成'
       fill_in "名前",	with: "花子"
       fill_in "メールアドレス",	with: "test2@example.com"
       fill_in "パスワード",	with: "password"
@@ -82,7 +82,7 @@ describe User, type: :system do
     end
 
     it 'ユーザー情報を編集できること' do
-      click_link_or_button 'ユーザー一覧'
+      click_link_or_button 'Users'
       click_link '花子'
       click_link '編集'
       fill_in "名前",	with: "愛子"
@@ -98,7 +98,7 @@ describe User, type: :system do
       click_button "確認"
       click_button "登録"
       # 登録完了のメッセージが表示されることを確認する
-      expect(page).to  have_content 'ユーザー「愛子」が更新しました。'
+      expect(page).to  have_content 'ユーザー「愛子」を更新しました。'
     end
   end
 
@@ -115,9 +115,9 @@ describe User, type: :system do
     end
 
     it 'ユーザー詳細画面へ遷移できること' do
-      click_link_or_button 'ユーザー一覧'
+      click_link_or_button 'Users'
       click_link '花子'
-      expect(page).to  have_content 'ユーザーの詳細'
+      expect(page).to  have_content 'ユーザー詳細'
     end
   end
 
@@ -134,7 +134,7 @@ describe User, type: :system do
     end
 
     it "ユーザーを削除できること" do
-      click_link_or_button 'ユーザー一覧'
+      click_link_or_button 'Users'
       click_link "花子"
       accept_alert do
         click_link_or_button '削除'

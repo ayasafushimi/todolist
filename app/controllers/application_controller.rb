@@ -13,4 +13,5 @@ class ApplicationController < ActionController::Base
       redirect_to login_path, flash: {error: "このページにアクセスするには、ログインする必要があります"}
     end
   end
+
 end

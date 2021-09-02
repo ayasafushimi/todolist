@@ -12,45 +12,6 @@ describe "ログイン機能", type: :system do
     expect(page).to  have_content 'ログインしました'
   end
 
-  # context "値に空文字が入力されたとき" do
-  #   it 'メールアドレスが空文字の場合エラーメッセージがでること' do
-  #     visit '/'
-  #     click_link_or_button 'ログイン'
-  #     fill_in 'メールアドレス', with: ''
-  #     fill_in 'パスワード', with: 'password'
-  #     cilick_button 'ログインする'
-  #     expect(page).to  have_content 'メールアドレスを入力してください'
-  #   end
-
-  #   it 'パスワードが空文字の場合エラーメッセージがでること' do
-  #     visit '/'
-  #     click_link_or_button 'ログイン'
-  #     fill_in 'メールアドレス', with: 'test@example.com'
-  #     fill_in 'パスワード', with: ''
-  #     cilick_button 'ログインする'
-  #     expect(page).to  have_content 'パスワードを入力してください'
-  #   end
-  # end
-
-  # context "データと一致しない値が入力されたとき" do
-  #   it 'パスワードが正しくない場合ログインができないこと' do
-  #     visit '/'
-  #     click_link_or_button 'ログイン'
-  #     fill_in 'メールアドレス', with: 'test@example.com'
-  #     fill_in 'パスワード', with: 'detarame'
-  #     cilick_button 'ログインする'
-  #     expect(page).to  have_content 'メールアドレスまたはパスワードが正しくありません'
-  #   end
-
-  #   it '登録していないメールアドレスでログインができないこと' do
-  #     visit '/'
-  #     click_button 'ログイン'
-  #     fill_in 'メールアドレス', with: 'detarame@example.com'
-  #     fill_in 'パスワード', with: 'password'
-  #     cilick_button 'ログインする'
-  #     expect(page).to  have_content 'メールアドレスまたはパスワードが正しくありません'
-  #   end
-  # end
 end
 
 describe "ログアウト機能" do
@@ -68,7 +29,7 @@ describe "ログアウト機能" do
 
     it 'ログアウトができる' do
       visit '/'
-      click_link_or_button 'ログアウト'
+      click_link_or_button 'Logout'
       expect(page).to  have_content 'ログアウトしました'
     end
   end
@@ -81,12 +42,12 @@ describe "ログアウト機能" do
       fill_in 'パスワード', with: 'password'
       click_button 'ログインする'
       visit '/'
-      click_link_or_button 'ログアウト'
+      click_link_or_button 'Logout'
     end
 
     it 'メニューバーにログアウトボタンがないこと' do
       visit '/'
-      expect(page).not_to  have_button 'ログアウト'
+      expect(page).not_to  have_button 'Logout'
     end
 
     it "タスク一覧画面へ遷移しようとすると、ログイン画面へ遷移されること" do

@@ -75,24 +75,24 @@ describe Todo, type: :system do
 
     context '有効な値が入力されたとき' do
       it '正常に登録されること' do
-        fill_in 'todo',	with: valid_task
+        fill_in 'Todo',	with: valid_task
         fill_in '締め切り日', with: valid_duedate
         click_button '登録'
         # 登録完了のメッセージが表示されることを確認する
-        expect(page).to  have_content '新しいtodoが作成されました'
+        expect(page).to  have_content '新しいTodoが作成されました'
       end
     end
 
     context "無効な値が入力されたとき" do
       it 'タスクに空文字が入力されるとエラーメッセージがでること' do
-        fill_in 'todo',	with: empty_task
+        fill_in 'Todo',	with: empty_task
         fill_in '締め切り日', with: valid_duedate
         click_button '登録'
         expect(page).to  have_content "#{Todo.human_attribute_name(:task)}を入力してください"
       end
 
       it '期限に空文字が入力されるとエラーメッセージがでること' do
-        fill_in 'todo',	with: valid_task
+        fill_in 'Todo',	with: valid_task
         fill_in '締め切り日', with: empty_duedate
         click_button '登録'
         expect(page).to  have_content "#{Todo.human_attribute_name(:duedate)}を入力してください"
@@ -115,21 +115,21 @@ describe Todo, type: :system do
 
     it 'todoを編集して更新できること' do
       visit todo_path(@todo)
-      click_button '編集'
-      fill_in 'todo', with: valid_task
+      click_link_or_button '編集'
+      fill_in 'Todo', with: valid_task
       click_button '確認'
       click_button '登録'
       # 更新完了のメッセージが表示されることを確認する
-      expect(page).to  have_content 'todoが更新されました'
+      expect(page).to  have_content 'Todoが更新されました'
     end
 
     it '確認画面で戻るボタンを押すと、編集画面へ遷移すること' do
         visit todo_path(@todo)
-        click_button '編集'
-        fill_in 'todo',	with: valid_task
+        click_link_or_button '編集'
+        fill_in 'Todo',	with: valid_task
         click_button '確認'
         click_button '戻る'
-        expect(page).to  have_content 'Edit'
+        expect(page).to  have_content 'Todoの編集'
       end
 
 
@@ -150,9 +150,9 @@ describe Todo, type: :system do
     it '削除ボタンを押すとtodoが削除できること' do
       visit todo_path(todo)
       accept_alert do
-        click_button '削除'
+        click_link_or_button '削除'
       end
-      expect(page).to  have_content 'todoが削除されました'
+      expect(page).to  have_content 'Todoが削除されました'
     end
   end
 

@@ -38,7 +38,7 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm
 
     if @todo.save
       TodoMailer.creation_email(@todo).deliver_now
-      redirect_to @todo, notice: "新しいtodoが作成されました"
+      redirect_to @todo, notice: "新しいTodoが作成されました"
     else
       render :new
     end
@@ -59,7 +59,7 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm
     end
 
     if @todo.update(todo_params)
-      redirect_to @todo, notice: 'todoが更新されました'
+      redirect_to @todo, notice: 'Todoが更新されました'
     else
       render :show
     end
@@ -67,7 +67,7 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm
 
   def destroy
     @todo.destroy
-    redirect_to todos_path, notice: 'todoが削除されました'
+    redirect_to todos_path, notice: 'Todoが削除されました'
   end
 
   def done

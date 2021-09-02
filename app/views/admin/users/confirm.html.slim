@@ -1,39 +1,55 @@
-h1 登録内容の確認
+div.w-3/5
+  h1.text-2xl.leading-6.font-bold.tracking-wide.py-5 登録内容の確認
+  = form_with model: [:admin, @user], local: true do |f|
+    div.bg-white.shadow.overflow-hidden.rounded-md.my-4.text-sm
+      div.sm:px-6.px-4.py-5
+        h1.text-lg.leading-6.font-medium ユーザー詳細
+      div.border-t.border-gray-200
+        dl 
+          div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+            dt.uppercase.font-medium.text-gray-400 
+              = User.human_attribute_name(:name)
+            dd.mt-1.sm:mt-0.sm:col-span-2 
+              = @user.name
+            = f.hidden_field :name
 
-= form_with model: [:admin, @user], local: true do |f|
-  table
-    tbody
-      tr
-        th  = User.human_attribute_name(:name)
-        td  = @user.name
-        = f.hidden_field :name
-      tr
-        th  = User.human_attribute_name(:email)
-        td  = @user.email
-        = f.hidden_field :email
-      tr
-        th  = User.human_attribute_name(:admin)
-        td  = @user.admin? ? 'あり' : 'なし'
-        = f.hidden_field :admin
-      tr
-        th  = User.human_attribute_name(:password)
-        td
-          - if @user.password.present?
-            - @user.password.length.times do
-              = "*"
-          - else
-            |
-        = f.hidden_field :password
-  = f.submit '戻る', name: 'back'
-  = f.submit '登録'
+          div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+            dt.uppercase.font-medium.text-gray-400 
+              = User.human_attribute_name(:email)
+            dd.mt-1.sm:mt-0.sm:col-span-2 
+              = @user.email
+            = f.hidden_field :email
 
-  div
-  - if @user.errors.any?
-  ul
-    - @user.errors.full_messages.each do |msg|
-      li
-        font[color="red"]
-          = msg
+          div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+            dt.uppercase.font-medium.text-gray-400 
+              = User.human_attribute_name(:admin)
+            dd.mt-1.sm:mt-0.sm:col-span-2 
+              = @user.admin? ? 'あり' : 'なし'
+            = f.hidden_field :admin
 
-  div
-  = link_to  "Topに戻る", todos_path
+          div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+            dt.uppercase.font-medium.text-gray-400 
+              = User.human_attribute_name(:password)
+            dd.mt-1.sm:mt-0.sm:col-span-2
+              - if @user.password.present?
+                - @user.password.length.times do
+                  = "*"
+              - else
+                |変更なし
+            = f.hidden_field :password
+
+    div.flex.justify-center.items-center
+      span.px-2.my-2
+        = f.submit '戻る', name: 'back', class: 'border bg-gray-600 text-white w-20 p-2 rounded-md font-bold'
+      span.px-2.my-2
+        = f.submit '登録', class: 'border bg-red-600 text-white w-20 p-2 rounded-md font-bold'
+
+    div
+      - if @user.errors.any?
+      ul
+        - @user.errors.full_messages.each do |msg|
+          li
+            font[color="red"]
+              = msg
+
+

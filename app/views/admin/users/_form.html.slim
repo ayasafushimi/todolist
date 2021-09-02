@@ -1,34 +1,36 @@
+div.container.flex.flex-col.my-6.text-gray-500
+  = form_with model: [:admin, user], local: true, url: { action: 'confirm'} do |f|
+    div
+      - if user.errors.any?
+      ul
+        - user.errors.full_messages.each do |msg|
+          li
+            font[color="red"]
+              = msg
+    div.flex.flex-col.my-2
+      span.font-bold.my-2
+        = f.label :name, '名前'
+      span
+        = f.text_field :name, class: 'rounded-md border-none'
+    div.flex.flex-col.my-2
+      span.font-bold.my-2
+        = f.label :email, 'メールアドレス'
+      span
+        = f.text_field :email, size: 40, class: 'rounded-md border-none'
+    div.flex.flex-row.my-6
+      span
+        = f.check_box :admin, class: 'rounded-md border-none'  
+      span.font-bold.mx-2
+        = f.label :admin, '管理者権限'     
+    div.flex.flex-col.my-2
+      span.font-bold.my-2
+        = f.label :password, 'パスワード'
+      span
+        = f.password_field :password, class: 'rounded-md border-none'
+    div.flex.flex-col.my-2
+      span.font-bold.my-2
+        = f.label :password_confirmation, 'パスワード(確認)'
+      span
+        = f.password_field :password_confirmation, class: 'rounded-md border-none'
+    = f.submit value: "確認", class: 'border bg-gray-800 text-white w-36 p-2 my-5 rounded-md font-bold'
 
-= form_with model: [:admin, user], local: true, url: { action: 'confirm'} do |f|
-  div
-    = f.label :name, '名前'
-    br
-    = f.text_field :name
-  div
-    = f.label :email, 'メールアドレス'
-    br
-    = f.text_field :email
-  div
-    = f.label :admin do
-      = f.check_box :admin
-      | 管理者権限
-  div
-    = f.label :password, 'パスワード'
-    br
-    = f.password_field :password
-  div
-    = f.label :password_confirmation, 'パスワード(確認)'
-    br
-    = f.password_field :password_confirmation
-  = f.submit value: "確認"
-
-  div
-  - if user.errors.any?
-  ul
-    - user.errors.full_messages.each do |msg|
-      li
-        font[color="red"]
-          = msg
-
-  div
-  = link_to "Topに戻る", todos_path

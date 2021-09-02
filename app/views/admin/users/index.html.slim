@@ -1,60 +1,63 @@
-div
-  font[color="red"]
-    = flash[:notice]
-h1 ユーザー一覧
+h1.text-2xl.leading-6.font-bold.tracking-wide.py-5 Users
 
-= link_to '新規登録', new_admin_user_path
+div.block.w-52.bg-blue-500.rounded-lg.font-bold.text-white.text-center.my-10.px-4.py-3.transition.duration-300.ease-in-out.hover:bg-blue-600
+  = link_to '新しいユーザーを作成', new_admin_user_path
 
-h2 Search
-= search_form_for @q, url: admin_users_path do |f|
-  div
-    = f.label :name, User.human_attribute_name(:name)
-    br
-    = f.text_field :name_cont, placeholder: "（例）花子"
-  div
-    = f.label :email, User.human_attribute_name(:email)
-    br
-    = f.text_field :email_cont, placeholder: "（例）test@exampl.com"
-  div
-    = f.label :admin, User.human_attribute_name(:admin)
-    br
-    |あり
-    = f.radio_button :admin_eq, true
-    |なし
-    = f.radio_button :admin_eq, false
-  div
-    = f.label :created_at, User.human_attribute_name(:created_at)
-    br
-    = f.datetime_field :created_at_gteq
-    |  〜
-    = f.datetime_field :created_at_lteq
-  div
-    = f.label :created_at, User.human_attribute_name(:updated_at)
-    br
-    = f.datetime_field :updated_at_gteq
-    |  〜
-    = f.datetime_field :updated_at_lteq
-  = f.submit value: "検索"
-  br
 
-table
-  thead
-    tr
-      th  = sort_link( @q, :name, User.human_attribute_name(:name))
-      th  = sort_link( @q, :email, User.human_attribute_name(:email))
-      th  = sort_link( @q, :admin, User.human_attribute_name(:admin))
-      th  = sort_link( @q, :created_at, User.human_attribute_name(:created_at))
-      th  = sort_link( @q, :updated_at, User.human_attribute_name(:updated_at))
-      th
-  tbody
-    - @users.each do |user|
-      tr
-        td  = link_to  user.name, [:admin, user]
-        td  = user.email
-        td  = user.admin? ? 'あり' : 'なし'
-        td  = user.created_at.strftime('%Y/%m/%d %H:%M')
-        td  = user.updated_at.strftime('%Y/%m/%d %H:%M')
-        td
-          = link_to  "編集", edit_admin_user_path(user)
-          = link_to  "削除", [:admin, user], method: :delete, data: {confirm: "ユーザー「#{user.name}」を削除します。よろしいですか？"}
+div.flex.flex-col.my-10.text-gray-500
+  = search_form_for @q, url: admin_users_path do |f|
+    div.flex.flex-row.my-2
+      div.flex.flex-col
+        span.font-bold.my-3
+          = f.label :name, User.human_attribute_name(:name)
+        span
+          = f.text_field :name_cont, placeholder: "（例）花子", class: 'rounded-md border-none'
+      div.flex.flex-col.mx-5
+        span.font-bold.my-3
+          = f.label :email, User.human_attribute_name(:email)
+        span
+          = f.text_field :email_cont, size: 40, placeholder: "（例）test@exampl.com", class: 'rounded-md border-none'
+      div.flex.flex-col.mx-5
+        span.font-bold.my-3
+          = f.label :admin, User.human_attribute_name(:admin)
+        div
+          span
+            = f.label "あり"
+          span.ml-1
+            = f.radio_button :admin_eq, true
+          span.ml-2
+            = f.label "なし"
+          span.ml-1
+            = f.radio_button :admin_eq, false, checked: true
+    div
+      = f.submit value: "検索", class: 'border bg-gray-800 text-white w-36 p-2 my-5 rounded-md font-bold'
+
+    div.shadow.overflow-hidden.bg-white.rounded.my-1
+      table.min-w-max.w-full.table-auto
+        thead
+          tr.bg-gray-200.text-gray-600.uppercase.text-sm.leading-normal
+            th.py-3.px-6.text-left  = sort_link( @q, :name, User.human_attribute_name(:name))
+            th.py-3.px-6.text-left  = sort_link( @q, :email, User.human_attribute_name(:email))
+            th.py-3.px-6.text-left  = sort_link( @q, :admin, User.human_attribute_name(:admin))
+            th.py-3.px-6.text-left  = sort_link( @q, :created_at, User.human_attribute_name(:created_at))
+            th.py-3.px-6.text-left  = sort_link( @q, :updated_at, User.human_attribute_name(:updated_at))
+            th
+        tbody.text-sm
+          - @users.each do |user|
+            tr.border-b.border-gray-200
+              td.py-3.px-6.text-left.whitespace-nowrap = link_to  user.name, [:admin, user]
+              td.py-3.px-6.text-left.whitespace-nowrap = user.email 
+              td.py-3.px-6.text-left.whitespace-nowrap = user.admin? ? 'あり' : 'なし'
+              td.py-3.px-6.text-left.whitespace-nowrap = user.created_at.strftime('%Y/%m/%d %H:%M')
+              td.py-3.px-6.text-left.whitespace-nowrap = user.updated_at.strftime('%Y/%m/%d %H:%M')
+              td.py-3.px-6.text-left.whitespace-nowrap 
+                span.pl-2
+                  = link_to  [:admin, user], method: :get, id: "詳細" do
+                    = icon 'far','eye', class: 'fa-lg' 
+                span.pl-2
+                  = link_to  edit_admin_user_path(user), method: :get, id: "編集" do
+                    = icon 'fas', 'pen', class: 'fa-lg'
+                span.pl-2
+                  = link_to  [:admin, user], method: :delete, id: "削除", data: {confirm: "ユーザー「#{user.name}」を削除します。よろしいですか？"}
+                    = icon 'far', 'trash-alt', class: 'fa-lg'
 

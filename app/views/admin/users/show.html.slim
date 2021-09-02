@@ -1,29 +1,43 @@
-div
-  font[color="red"]
-    = flash[:notice]
-h1 ユーザーの詳細
-
-= link_to "一覧", admin_users_path
-
-table
-  thead
-    tr
-      th  = User.human_attribute_name(:id)
-      th  = User.human_attribute_name(:name)
-      th  = User.human_attribute_name(:email)
-      th  = User.human_attribute_name(:admin)
-      th  = User.human_attribute_name(:created_at)
-      th  = User.human_attribute_name(:updated_at)
-      th
-  tbody
-      tr
-        td  = @user.id
-        td  = @user.name
-        td  = @user.email
-        td  = @user.admin? ? 'あり' : 'なし'
-        td  = @user.created_at
-        td  = @user.updated_at
-
-= link_to  "編集", edit_admin_user_path(@user)
-= link_to  "削除", [:admin, @user], method: :delete, data: {confirm: "ユーザー「#{@user.name}」を削除します。よろしいですか？"}
-
+div.bg-white.shadow.overflow-hidden.rounded-md.w-3/5
+  div.sm:px-6.px-4.py-5
+    h1.text-lg.leading-6.font-medium ユーザー詳細
+  div.border-t.border-gray-200.text-sm
+    dl
+      div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 
+          = User.human_attribute_name(:id)
+        dd.mt-1.sm:mt-0.sm:col-span-2 
+          = @user.id
+      div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 
+          = User.human_attribute_name(:name)
+        dd.mt-1.sm:mt-0.sm:col-span-2 
+          = @user.name
+      div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 
+          = User.human_attribute_name(:email)
+        dd.mt-1.sm:mt-0.sm:col-span-2 
+          = @user.email
+      div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 
+          = User.human_attribute_name(:admin)
+        dd.mt-1.sm:mt-0.sm:col-span-2 
+          = @user.admin? ? 'あり' : 'なし'
+      div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 
+          = User.human_attribute_name(:created_at)
+        dd.mt-1.sm:mt-0.sm:col-span-2 
+          = @user.created_at.strftime('%Y/%m/%d %H:%M')
+      div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 
+          = User.human_attribute_name(:updated_at)
+        dd.mt-1.sm:mt-0.sm:col-span-2 
+          = @user.created_at.strftime('%Y/%m/%d %H:%M')
+div.my-8.w-3/5.h-5.relative
+  div.absolute.right-0.bottom-0.mx-2
+    span.px-3
+      = link_to  edit_admin_user_path(@user), method: :get, id: "編集" do
+        = icon 'fas', 'pen', class: 'fa-lg'
+    span.px-3
+      = link_to  [:admin, @user], method: :delete, id: "削除", data: {confirm: "ユーザー「#{@user.name}」を削除します。よろしいですか？"}
+        = icon 'far', 'trash-alt', class: 'fa-lg'

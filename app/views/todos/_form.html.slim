@@ -1,24 +1,27 @@
-= form_with model: @todo, local: true do |f|
-  div
-    = f.label :task, Todo.human_attribute_name(:task)
-    br
-    = f.text_field :task
-  div
-    = f.label :duedate, Todo.human_attribute_name(:duedate)
-    br
-    = f.datetime_field :duedate
-  div
-    = f.label :image
-    = f.file_field :image
-  = f.submit '登録'
+div.container.flex.flex-col.my-6.text-gray-500
+  = form_with model: @todo, local: true do |f|
+    div
+      - if @todo.errors.any?
+      ul
+        - @todo.errors.full_messages.each do |msg|
+          li
+            font[color="red"]
+              = msg
+    div.flex.flex-col.my-2
+      span.font-bold.my-2
+        = f.label :task, Todo.human_attribute_name(:task)
+      span
+        = f.text_field :task, class: 'rounded-md border-none'
+    div.flex.flex-col.my-2
+      span.font-bold.my-2
+        = f.label :duedate, Todo.human_attribute_name(:duedate)
+      span
+        = f.datetime_field :duedate, class: 'rounded-md border-none'
+    div.flex.flex-col.my-2
+      span.font-bold.my-2
+        = f.label :image
+      span
+        = f.file_field :image
+    = f.submit '登録', class: 'border bg-gray-800 text-white w-36 p-2 my-5 rounded-md font-bold'
 
-  div
-  - if @todo.errors.any?
-  ul
-    - @todo.errors.full_messages.each do |msg|
-      li
-        font[color="red"]
-          = msg
-
-  div
-  = link_to  "Topに戻る", todos_path
+ 

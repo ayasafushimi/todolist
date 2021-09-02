@@ -68,7 +68,12 @@ gem 'kaminari'
 gem 'ransack'
 
 gem 'slim'
-
 gem 'html2slim'
 
 gem 'rinku'
+
+gem "tailwindcss-rails",
+    github: "dorianmariefr/tailwindcss-rails",
+    branch: "minimal"
+
+gem 'font-awesome-sass', '~> 5.15.1'
