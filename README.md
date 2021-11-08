@@ -1,10 +1,3 @@
-# sandbox-ruby
-
-完成目標
-test
-
-<img src='application-image.jpg' width='400px' />
-
 ## Todolist
 アカウントごとに、自身のタスクを管理することができるサイトです。  
 https://pws-sandbox-ruby.herokuapp.com/
