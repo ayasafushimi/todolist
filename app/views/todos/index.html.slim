@@ -1,0 +1,67 @@
+h1.text-2xl.leading-6.font-bold.tracking-wide.py-5 Todos
+
+div.block.w-44.bg-blue-500.rounded-lg.font-bold.text-white.text-center.my-10.px-4.py-3.transition.duration-300.ease-in-out.hover:bg-blue-600
+  = link_to  "新しいTodoを作成", new_todo_path
+
+div.container.flex.flex-col.my-10.text-gray-500
+  = search_form_for @q, url: todos_path do |f|
+    div.flex.flex-row
+      div.flex.flex-col
+        span.font-bold.my-2
+          = f.label :task, Todo.human_attribute_name(:task)
+        span
+          = f.text_field :task_cont, placeholder: "やること", class: 'rounded-md border-none p-3'
+      div.flex.flex-col.mx-5
+        span.font-bold.my-2
+          = f.label :duedate, Todo.human_attribute_name(:duedate)
+        span
+          = f.datetime_field :duedate_gteq, class: 'rounded-md border-none p-3'
+          |  〜
+          = f.datetime_field :duedate_lteq, class: 'rounded-md border-none p-3'
+    div
+      = f.submit value: "検索", class: 'border bg-gray-800 text-white w-36 p-2 my-5 rounded-md font-bold'
+
+
+  div.shadow.overflow-hidden.bg-white.rounded.my-1
+    table.min-w-max.w-full.table-auto
+      thead
+        tr.bg-gray-200.text-gray-600.uppercase.text-sm.leading-normal
+          th.py-3.px-6.text-left  = sort_link( @q, :state, Todo.human_attribute_name(:state))
+          th.py-3.px-6.text-left  = sort_link( @q, :duedate, Todo.human_attribute_name(:duedate))
+          th.py-3.px-6.text-left  = sort_link( @q, :task, Todo.human_attribute_name(:task))
+          th.py-3.px-6.text-left actions
+          th
+          th
+      tbody.text-sm
+        - @todos.each do |todo|
+          tr.border-b.border-gray-200
+            td.py-3.px-6.text-left.whitespace-nowrap 
+              - if todo.state == "done"
+                span.px-2.inline-flex.text-xs.leading-5.font-semibold.rounded-full.bg-red-100.text-red-800
+                  = todo.state
+              - else
+                span.px-2.inline-flex.text-xs.leading-5.font-semibold.rounded-full.bg-green-100.text-green-800
+                  = todo.state
+            td.py-3.px-6.text-left.whitespace-nowrap  = todo.duedate.strftime('%Y/%m/%d %H:%M')
+            td.py-3.px-6.text-left.whitespace-nowrap  = raw Rinku.auto_link(todo.task)
+            td.py-3.px-6.text-left.whitespace-nowrap
+              - if todo.state == "done"
+                |
+              - else
+                span.pl-2
+                  = link_to  todo_path(todo), method: :get, id: "詳細" do
+                    = icon 'far','eye', class: 'fa-lg'   
+              span.pl-2
+                = link_to  edit_todo_path(todo), method: :get, id: "編集" do
+                  = icon 'fas', 'pen', class: 'fa-lg'
+              - if todo.state == "done"
+                |
+              - else
+                span.pl-2
+                  = link_to  done_path(todo), method: :patch, id: "完了" do
+                    = icon 'far', 'check-circle', class: 'fa-lg'
+              span.pl-2
+                = link_to  todo_path(todo), method: :delete, id: "削除", data: {confirm: "削除します。よろしいですか？"}
+                  = icon 'far', 'trash-alt', class: 'fa-lg'
+          
+  = paginate @todos

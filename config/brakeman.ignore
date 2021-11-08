@@ -1,0 +1,57 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "eb5faf44a3c065b7fc702828e2e055450a32c5681841a621895ca0400c7d85ce",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/users_controller.rb",
+      "line": 48,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":admin",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "f001172bd993258e9ff3829eaa4ae7ea69da112968e1a0864450a9765c888f58",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/todos/show.html.slim",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Rinku.auto_link(current_user.todos.find(params[:id]).task)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "TodosController",
+          "method": "show",
+          "line": 29,
+          "file": "app/controllers/todos_controller.rb",
+          "rendered": {
+            "name": "todos/show",
+            "file": "app/views/todos/show.html.slim"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "todos/show"
+      },
+      "user_input": "current_user.todos.find(params[:id])",
+      "confidence": "Weak",
+      "note": ""
+    }
+  ],
+  "updated": "2021-07-28 15:59:59 +0900",
+  "brakeman_version": "5.0.4"
+}

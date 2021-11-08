@@ -1,0 +1,22 @@
+div.bg-white.shadow.overflow-hidden.rounded-md.w-3/5
+
+  div.sm:px-6.px-4.py-5
+    h1.text-lg.leading-6.font-medium Todo詳細
+  div.border-t.border-gray-200.text-sm
+    dl 
+      div.bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 = Todo.human_attribute_name(:task)
+        dd.mt-1.sm:mt-0.sm:col-span-2 = raw Rinku.auto_link(@todo.task)
+      div.bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        dt.uppercase.font-medium.text-gray-400 = Todo.human_attribute_name(:duedate)
+        dd.mt-1.sm:mt-0.sm:col-span-2 = @todo.duedate.strftime('%Y/%m/%d %H:%M')
+div.my-8.w-3/5.h-5.relative
+  div.absolute.right-0.bottom-0.mx-2
+    span.px-3
+      = link_to  edit_todo_path(@todo), method: :get, id: "編集" do
+        = icon 'fas', 'pen', class: 'fa-lg'
+    span.px-3
+      = link_to  todo_path(@todo), method: :delete, id: "削除", data: {confirm: "削除します。よろしいですか？"}
+        = icon 'far', 'trash-alt', class: 'fa-lg'
+
+          

@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title
+      | Todolist
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag nonce: true
+    = stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag "https://use.fontawesome.com/releases/v5.9.0/css/all.css"
+    = stylesheet_link_tag "tailwind", 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag "inter-font", 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body.min-h-screen.bg-gray-100.overflow-x-autopy-6.text-gray-600.leading-tight
+    header.flex.text-center.sm:flex-row.sm:text-left.sm:justify-between.py-8.px-8.bg-white.shadow
+      div.mb-2.sm:mb-0.float-left
+        a class="text-2xl no-underline text-gray-600 hover:text-blue-400" href="/"  Todolist
+      nav
+        ul.flex.flex-row.float-right
+          - if current_user
+            li.text-lg.no-underline.text-gray-600.hover:text-blue-400.ml-5 = link_to  "Todos", todos_path
+            - if current_user.admin?
+              li.text-lg.no-underline.text-gray-600.hover:text-blue-400.ml-5 = link_to  "Users", admin_users_path
+            li.text-lg.no-underline.text-gray-600.hover:text-blue-400.ml-5  = link_to  "My Account", admin_user_path(session[:user_id])
+            li.text-lg.no-underline.text-gray-600.hover:text-blue-400.ml-5  = link_to  "Logout", logout_path, method: :delete
+          - else
+            li.float-left.text-lg.no-underline.text-gray-600.hover:text-blue-400.ml-5  = link_to  "Login", login_path
+    
+    div
+      - if flash[:error]
+        div.rounded-md.bg-yellow-100.p-3.flex.items-center
+          = icon 'fas','exclamation-triangle', class: 'fa-2x mr-2 text-yellow-600'  
+          p.font-medium.text-xl.text-yellow-700 = flash[:error]
+    
+    div
+      - if flash[:notice]
+        div.rounded-md.bg-green-100.p-3.flex.items-center
+          = icon 'far','check-circle', class: 'fa-2x mr-2 text-green-600'  
+          p.font-medium.text-xl.text-green-700 = flash[:notice]
+    
+    div.lg:w-5/6.mx-auto.my-10
+      = yield

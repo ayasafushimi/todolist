@@ -1,0 +1,23 @@
+
+h1.text-2xl.leading-6.font-bold.tracking-wide.py-5 Todo登録
+
+div.container.flex.flex-col.my-6.text-gray-500
+  = form_with model: @todo, url: { action: 'confirm'}, lacal: true do |f|
+    div
+      - if @todo.errors.any?
+      ul
+        - @todo.errors.full_messages.each do |msg|
+          li
+            font[color="red"]
+              = msg
+    div.flex.flex-col
+      span.font-bold.my-2
+        = f.label :task, Todo.human_attribute_name(:task)
+      span
+        = f.text_field :task, class: 'rounded-md border-none p-3'
+    div.flex.flex-col
+      span.font-bold.my-2
+        = f.label :duedate, Todo.human_attribute_name(:duedate)
+      span
+        = f.datetime_field :duedate, class: 'rounded-md border-none p-3'
+    = f.submit value: "確認", class: 'border bg-gray-800 text-white w-36 p-2 my-5 rounded-md font-bold'
