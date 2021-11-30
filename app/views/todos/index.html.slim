@@ -34,7 +34,7 @@ div.container.flex.flex-col.my-10.text-gray-500
           th
       tbody.text-sm
         - @todos.each do |todo|
-          tr.border-b.border-gray-200
+          tr.border-b.border-gray-200 id="todo-#{todo.id}"
             td.py-3.px-6.text-left.whitespace-nowrap 
               - if todo.state == "done"
                 span.px-2.inline-flex.text-xs.leading-5.font-semibold.rounded-full.bg-red-100.text-red-800
@@ -61,7 +61,7 @@ div.container.flex.flex-col.my-10.text-gray-500
                   = link_to  done_path(todo), method: :patch, id: "完了" do
                     = icon 'far', 'check-circle', class: 'fa-lg'
               span.pl-2
-                = link_to  todo_path(todo), method: :delete, id: "削除", data: {confirm: "削除します。よろしいですか？"}
+                = link_to  todo_path(todo), method: :delete, remote: true, id: "削除", class: 'delete', data: {confirm: "削除します。よろしいですか？"}
                   = icon 'far', 'trash-alt', class: 'fa-lg'
           
   = paginate @todos
