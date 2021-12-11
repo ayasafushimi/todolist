@@ -21,7 +21,6 @@ https://pws-sandbox-ruby.herokuapp.com/
 - TailwindCSS
 - slim
 - git action
-  - RSpecテストの実行
   - Herokuへのデプロイ
 - RSpec
 
