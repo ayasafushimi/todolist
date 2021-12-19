@@ -77,3 +77,5 @@ gem "tailwindcss-rails",
     branch: "minimal"
 
 gem 'font-awesome-sass', '~> 5.15.1'
+
+gem 'jquery-rails'
