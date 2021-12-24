@@ -8,5 +8,9 @@ FactoryBot.define do
     trait :with_todos do
       after(:create) {|user| create_list(:todo, 5, user: user)}
     end
+
+    trait :with_todo do
+      after(:create) {||}
+    end
   end
 end

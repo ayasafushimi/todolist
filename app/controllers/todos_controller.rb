@@ -75,6 +75,7 @@ before_action :set_todo, only: [:show, :edit, :update, :destroy, :done, :confirm
   end
 
   def record_not_found
+    logger.info "Rendering 404 with exception: #{e.message}" if e
     render plain: "404 Not Found", status: 404
   end
 
