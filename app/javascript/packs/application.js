@@ -13,7 +13,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-
+import Bar from "../src/todos"
 
 
 
